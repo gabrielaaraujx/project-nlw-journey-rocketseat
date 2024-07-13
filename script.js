@@ -40,7 +40,12 @@ let atividades = [
 // Arrow function
 const criarItemAtividade = (atividade) => {
     
-    let input = '<input type="checkbox" '
+    let input = `
+    <input
+    onchange="concluirAtividade(event)"
+    value="${atividade.data}"
+    type="checkbox"
+    `
 
     if(atividade.finalizada) {
         input += 'checked'
@@ -92,19 +97,21 @@ const salvarAtividade = (event) => {
 
     const data = `${dia} ${hora}`
 
-    const Atividade = {
-        nome: nome,
+    const novaAtividade = {
+        nome,
         data,
         finalizada: false
     }
 
-    const atividadeExiste = atividades.find((ativ) => {
-        return ativ.data == atividade.data
-
-        //PAREI AQUI NO MINUTO 50>58 DA AULA 2//
+    const atividadeExiste = atividades.find((atividade) => {
+        return atividade.data == novaAtividade.data
     })
 
-    atividades = [atividade, ...atividades]
+    if(atividadeExiste) {
+        return alert('Dia/Hora não disponivel')
+    }
+
+    atividades = [novaAtividade, ...atividades]
     atualizarListaAtividade()
 }
 
@@ -136,8 +143,9 @@ const criarHorasSelecao = () => {
     let horasDisponiveis = ''
 
     for(let i = 6; i < 23; i++) {
-        horasDisponiveis += `<option value="${i}:00">${i}:00</option>`
-        horasDisponiveis += `<option value="${i}:30">${i}:30</option>`
+        const hora = String(i).padStart(2, '0')
+        horasDisponiveis += `<option value="${hora}:00">${hora}:00</option>`
+        horasDisponiveis += `<option value="${hora}:30">${hora}:30</option>`
     }
 
     document
@@ -146,3 +154,18 @@ const criarHorasSelecao = () => {
 }
 
 criarHorasSelecao()
+
+const concluirAtividade = (event) => {
+    const input = event.target
+    const dataInput = input.value
+
+    const atividade = atividade.find((atividade) => {
+        return atividade.data == dataInput
+    })
+
+    if(!atividade) {
+        return
+    }
+
+    atividade.finalizada = !atividade.finalizada
+}
