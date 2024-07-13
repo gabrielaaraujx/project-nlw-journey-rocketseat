@@ -56,10 +56,17 @@ const criarItemAtividade = (atividade) => {
     const formatar = formatador(atividade.data);
 
     return `
-    <div>
+    <div class="card-bg">
         ${input}
         <span>${atividade.nome}</span>
-        <time>
+
+        <time class="short">
+            ${formatar.dia.semana.curto}.
+            ${formatar.dia.numerico} <br>
+            ${formatar.hora}
+        </time>
+
+        <time class="full">
             ${formatar.dia.semana.longo},
             dia ${formatar.dia.numerico}
             de ${formatar.mes}
@@ -108,7 +115,7 @@ const salvarAtividade = (event) => {
     })
 
     if(atividadeExiste) {
-        return alert('Dia/Hora não disponivel')
+        return alert('Dia/Hora não disponível')
     }
 
     atividades = [novaAtividade, ...atividades]
@@ -128,8 +135,10 @@ const criarDiasSelecao = () => {
 
     for(let dia of dias) {
         const formatar = formatador(dia)
-        const diaFormatado = `${formatar.dia.numerico} de ${formatar.mes}`
-        diasSelecao += `<option value="${dia}">${diaFormatado}</option>`
+        const diaFormatado = `
+        ${formatar.dia.numerico} de ${formatar.mes}`
+        diasSelecao += `
+        <option value="${dia}">${diaFormatado}</option>`
     }
 
     document
@@ -144,8 +153,10 @@ const criarHorasSelecao = () => {
 
     for(let i = 6; i < 23; i++) {
         const hora = String(i).padStart(2, '0')
-        horasDisponiveis += `<option value="${hora}:00">${hora}:00</option>`
-        horasDisponiveis += `<option value="${hora}:30">${hora}:30</option>`
+        horasDisponiveis += `
+        <option value="${hora}:00">${hora}:00</option>`
+        horasDisponiveis += `
+        <option value="${hora}:30">${hora}:30</option>`
     }
 
     document
@@ -159,7 +170,7 @@ const concluirAtividade = (event) => {
     const input = event.target
     const dataInput = input.value
 
-    const atividade = atividade.find((atividade) => {
+    const atividade = atividades.find((atividade) => {
         return atividade.data == dataInput
     })
 
