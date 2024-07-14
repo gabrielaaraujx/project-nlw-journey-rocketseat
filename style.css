@@ -108,18 +108,76 @@ section {
     gap: 10px;
 }
 
-section input[type="checkbox"]
-/* PAREI NO MINUTO 48:20 */
+section input[type="checkbox"] {
+    position: absolute;
+    inset: 0;
+}
 
 section .card-bg {
+    position: relative;
     padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+section .card-bg:has(:checked) .active,
+section .card-bg .inactive {
+    display: block;
+}
+
+section .card-bg:has(:checked) .inactive,
+section .card-bg .active {
+    display: none;
+}
+
+section .card-bg > div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 time {
     font-size: 14px;
     color: #a1a1ab;
+    text-align: right;
 }
 
 time.full {
     display: none;
+}
+
+@media (width > 1024px) {
+    #app {
+        display: flex;
+        max-width: 960px;
+        gap: 32px;
+    }
+
+    main {
+        margin-top: 0;
+        flex: 1;
+    }
+
+    h1 {
+        text-align: left;
+    }
+
+    time.full {
+        display: block;
+    }
+
+    time.short {
+        display: none;
+    }
+}
+
+section .card-bg {
+    animation: appear 300ms;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
 }
