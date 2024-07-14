@@ -63,7 +63,7 @@ input, select, button {
 }
 
 button {
-    margin: 12px;
+    margin-top: 12px;
     border: none;
     padding: 12px 20px;
     background-color: #AFF445;
@@ -101,6 +101,7 @@ h1 {
     font-weight: 600;
     font-size: 24px;
 
+    margin-top: 24px;
     margin-bottom: 24px;
 }
 
@@ -146,6 +147,7 @@ time {
 
 time.full {
     display: none;
+    width: 300px;
 }
 
 @media (width > 1024px) {
